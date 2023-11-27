@@ -12,18 +12,32 @@ const db = mysql.createConnection({
   database:"sklad_db"
 });
 
-app.get("/", (req, res) => {
+app.use(express.json());
+
+app.get("/", (req, res) => {  //проверка подключения к бэку
   res.json("hello this is a backend!");
-});
+}); 
 
 
-app.get("/clients", (req, res) => {
+
+app.get("/clients", (req, res) => {   //вывод данных из бд
   const q = "SELECT * FROM clients"
   db.query(q, (err, data) => {
     if(err) return res.json(err)
     return res.json(data);
   })
+});
+
+
+app.post ("/clients", (req, res) => {  //добавление данных в бд
+  const q = "INSERT INTO clients(`first_name`, `second_name`,`name_project`) VALUES (?)"
+  const values = ["Ksenia", "Gumannikova", "Komus"];
+  db.query(q, [values], (err, data) => {
+    if(err) return res.json(err)
+    return res.json("Client has been created!");
+  })
 })
+
 
 
 
