@@ -17,7 +17,7 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   //проверка подключения к бэку
-  res.json("hello this is a backend!");
+  res.json("Hello this is a backend!");
 });
 
 app.get("/clients", (req, res) => {
@@ -68,6 +68,15 @@ app.put("/clients/:id", (req, res) => {
   db.query(q, [...values, clientId], (err, data) => {
     if (err) return res.json(err);
     return res.json("Client has been updated!");
+  });
+});
+
+app.get("/cameras", (req, res) => {
+  //вывод данных из бд
+  const q = "SELECT * FROM cameras";
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
   });
 });
 
