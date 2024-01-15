@@ -5,7 +5,7 @@ const Cameras = () => {
 
   useEffect(() => {
     // Получение камер из БД
-    const fetchAllCameras = async () => { 
+    const fetchAllCameras = async () => {
       try {
         const res = await axios.get("http://localhost:8800/cameras");
         setCameras(res.data);
