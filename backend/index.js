@@ -29,8 +29,44 @@ app.get("/clients", (req, res) => {
   });
 });
 
+app.post("/login_system", (req, res) => {
+  // Добавление данных о логине и пароле клиента в БД
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(
+    "INSERT INTO login_system(`username`, `password`) VALUES (?, ?)",
+    [username, password],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+});
+
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(
+    "SELECT * FROM login_system WHERE username = ? AND password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.send({ message: "Wrong username/password combination!" });
+      }
+    }
+  );
+});
+
 app.post("/clients", (req, res) => {
-  //добавление данных в бд
+  //добавление данных о клиенте в бд
   const q =
     "INSERT INTO clients(`first_name`, `second_name`,`name_project`) VALUES (?)";
   const values = [

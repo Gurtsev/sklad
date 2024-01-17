@@ -3,7 +3,7 @@ import Clients from "./pages/Clients";
 import Add from "./pages/Add";
 import Update from "./pages/Update";
 import Cameras from "./pages/Equipments/Cameras";
-import Login from "./pages/Registrastion/LogIn";
+import LoginReg from "./pages/Registrastion/LogIn";
 import "./style.css";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/update/:id" element={<Update />} />
           <Route path="/Equipments/cameras" element={<Cameras />} />
-          <Route path="/Registration/LogIn" element={<Login />} />
+          <Route path="/Registration/LogIn" element={<LoginReg />} />
         </Routes>
       </BrowserRouter>
     </div>
