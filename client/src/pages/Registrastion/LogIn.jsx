@@ -8,6 +8,8 @@ const LoginReg = () => {
   const [username, setUsername] = useState([""]);
   const [password, setPassword] = useState([""]);
 
+  const [loginStatus, setLoginStatus] = useState([""]);
+
   const register = () => {
     axios
       .post("http://localhost:8800/login_system", {
@@ -25,7 +27,11 @@ const LoginReg = () => {
         password: password,
       })
       .then((response) => {
-        console.log(response);
+        if (response.data.message) {
+          setLoginStatus(response.data.message);
+        } else {
+          setLoginStatus(response.data[0].username);
+        }
       });
   };
   return (
@@ -69,6 +75,7 @@ const LoginReg = () => {
         />
         <button onClick={login}>Login</button>
       </div>
+      <h1>{loginStatus}</h1>
     </div>
   );
 };
